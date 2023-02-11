@@ -5,8 +5,13 @@ export default class UserRepository {
     constructor() {
         this._users = new Array<Users>();
     }
-    
-    public create(user:Users) {
+
+    public create(user: any) {
         this._users.push(user);
+        return user;
+    }
+
+    public findOne(email: any) {
+        return this._users.find(user => user.email === email);
     }
 }

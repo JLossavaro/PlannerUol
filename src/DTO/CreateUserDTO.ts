@@ -10,8 +10,8 @@ export class CreateUserDTO {
     password?: string;
     confirmPassword?: string;
 
-    static validadeData = (obj: CreateUserDTO) => {
-        const result = CreateUserSchema.safeParse;
+    static validateData = (obj: CreateUserDTO) => {
+        const result = CreateUserSchema.safeParse(obj);
         return result;
     }
 }
@@ -19,7 +19,7 @@ export class CreateUserDTO {
 export const CreateUserSchema = z.object({
     firstName: z.string().regex(/^[a-zA-Z]+$/),
     lastName: z.string().regex(/^[a-zA-Z]+$/),
-    birthDate: z.date(),
+    birthDate: z.string(),
     city: z.string().regex(/^[a-zA-Z]+$/),
     country: z.string().regex(/^[a-zA-Z]+$/),
     email: z.string().email(),

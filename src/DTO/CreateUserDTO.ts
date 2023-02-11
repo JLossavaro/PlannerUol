@@ -1,27 +1,5 @@
 import { z } from 'zod';
 
-export interface createUserDTO {
-    firstName?: string;
-    lastName?: string;
-    birthDate?: Date;
-    city?: string;
-    country?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-}
-
-export const CreateUserSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    birthDate: z.date(),
-    city: z.string(),
-    country: z.string(),
-    email: z.string().email(),
-    password: z.string(),
-    confirmPassword: z.string()
-});
-
 export class CreateUserDTO {
     firstName?: string;
     lastName?: string;
@@ -30,11 +8,21 @@ export class CreateUserDTO {
     country?: string;
     email?: string;
     password?: string;
+    confirmPassword?: string;
 
-    static validadeData = (obj: createUserDTO) => {
+    static validadeData = (obj: CreateUserDTO) => {
         const result = CreateUserSchema.safeParse;
         return result;
     }
-
-
 }
+
+export const CreateUserSchema = z.object({
+    firstName: z.string().regex(/^[a-zA-Z]+$/),
+    lastName: z.string().regex(/^[a-zA-Z]+$/),
+    birthDate: z.date(),
+    city: z.string().regex(/^[a-zA-Z]+$/),
+    country: z.string().regex(/^[a-zA-Z]+$/),
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string()
+});

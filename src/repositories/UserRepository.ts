@@ -1,12 +1,12 @@
 import { Users } from "../models";
 
 export default class UserRepository {
-    users: Array<Users>;
+    _users: Array<Users>;
     constructor() {
-        this.users = new Array<Users>();
+        this._users = new Array<Users>();
     }
     
     public create(user:Users) {
-        this.users.push(user);
+        this._users.push(user);
     }
 }

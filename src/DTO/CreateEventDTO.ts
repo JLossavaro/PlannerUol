@@ -1,20 +1,16 @@
 import { z } from 'zod';
 
-export interface createEventDTO {
-    firstName?: string;
-}
-
 export const CreateEventSchema = z.object({
-    firstName: z.string(),
+    dateTime: z.date(),
+    description: z.string(),
 });
 
 export class CreateEventDTO {
-    firstName?: string;
+    description?: string;
+    dateTime?: Date;
 
-    static validadeData = (obj: createEventDTO) => {
-        const result = CreateEventSchema.safeParse;
+    static validadeData = (obj: CreateEventDTO) => {
+        const result = CreateEventSchema.safeParse(obj);
         return result;
     }
-
-
 }

@@ -1,13 +1,16 @@
 import { Router, Request, Response } from 'express';
+import { UserController } from '../controller';
 
 const route = Router();
 
-route.get('/users', (req: Request, res: Response) => {
-  // Obtenha todos os usuários
+const userController = new UserController();
+
+route.post('/users/signUp', (req: Request, res: Response) => {
+  return userController.createUser(req, res);
 });
 
-route.get('/users/:id', (req: Request, res: Response) => {
-  // Obtenha um usuário específico pelo ID
+route.post('/users/signIn', (req: Request, res: Response) => {
+  return userController.login(req, res);
 });
 
 export default route;

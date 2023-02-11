@@ -25,7 +25,12 @@ export default class UserController {
 
             return res.status(201).json({ data: createdUser });
         } catch (err) {
-            return res.status(500).json({ message: err });
+            const errorMessage: string = (err as Error).message;
+
+            if (errorMessage === "User already exists") {
+                return res.status(400).json({ message: errorMessage });
+            }
+            return res.status(500).json({ errorMessage });
         }
 
 

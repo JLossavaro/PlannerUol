@@ -6,12 +6,12 @@ export default class UserRepository {
         this._users = new Array<Users>();
     }
 
-    public create(user: any) {
+    async create(user: any) {
         this._users.push(user);
         return user;
     }
 
-    public findOne(email: any) {
+    async findOne(email: any) {
         return this._users.find(user => user.email === email);
     }
 }

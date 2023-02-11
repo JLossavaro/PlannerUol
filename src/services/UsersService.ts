@@ -21,19 +21,18 @@ export default class UsersServices {
                 email: createUserDTO.email,
                 password: createUserDTO.password
             };
-            const userFind = await this._userRepository.findOne(user)
+            const userFind = await this._userRepository.findOne(user.email)
             if (!userFind) {
                 return await this._userRepository.create(user as Users);
             } else {
                 throw new Error("User already exists");
             }
-        }
-        catch (error) {
+        } catch (error) {
             throw error;
         }
     }
 
-    
+
     async login(userLogin: UserLoginDTO): Promise<Users | null> {
 
         const user = await this._userRepository.findOne(userLogin.email);

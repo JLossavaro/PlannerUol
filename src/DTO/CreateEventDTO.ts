@@ -9,7 +9,7 @@ export class CreateEventDTO {
     description?: string;
     dateTime?: Date;
 
-    static validadeData = (obj: CreateEventDTO) => {
+    static validateData = (obj: CreateEventDTO) => {
         const result = CreateEventSchema.safeParse(obj);
         return result;
     }

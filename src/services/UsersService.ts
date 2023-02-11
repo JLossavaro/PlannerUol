@@ -1,15 +1,48 @@
 import { UserLoginDTO, CreateUserDTO } from "../DTO";
 import { UserRepository } from "../repositories";
+import { Users } from "../models";
 
 export default class UsersServices {
 
+    _userRepository: UserRepository;
 
-    public createUser(user: CreateUserDTO) {
-        //Todo: implement
+    constructor() {
+        this._userRepository = new UserRepository();
     }
 
-    public login(user: UserLoginDTO) {
-        //Todo: implement
+    async createUser(createUserDTO: CreateUserDTO) {
+        try {
+            const user = {
+                firstName: createUserDTO.firstName,
+                lastName: createUserDTO.lastName,
+                birthDate: createUserDTO.birthDate,
+                city: createUserDTO.city,
+                country: createUserDTO.country,
+                email: createUserDTO.email,
+                password: createUserDTO.password
+            };
+            const userFind = await this._userRepository.findOne(user)
+            if (!userFind) {
+                return await this._userRepository.create(user as Users);
+            } else {
+                throw new Error("User already exists");
+            }
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    
+    async login(userLogin: UserLoginDTO): Promise<Users | null> {
+
+        const user = await this._userRepository.findOne(userLogin.email);
+
+        if (user && user.password === userLogin.password) {
+            return user;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,21 +1,54 @@
+import { Request, Response } from 'express';
 import { CreateUserDTO, UserLoginDTO } from "../DTO";
-import { Users } from "../models";
 import { UsersService } from "../services";
 
 
 export default class UserController {
-    userService: UsersService;
+    private userService: UsersService;
 
     constructor() {
         this.userService = new UsersService();
     };
 
-    public createUser(user: CreateUserDTO) {
-        this.userService.createUser(user);
+    async createUser(req: Request, res: Response) {
+        try {
+            const createUserDTO: CreateUserDTO = req.body;
+
+            const validateCreate = CreateUserDTO.validateData(createUserDTO);
+            if (!validateCreate.success) {
+                return res
+                    .status(401)
+                    .json('required data not informed');
+            }
+
+            const createdUser = await this.userService.createUser(createUserDTO);
+
+            return res.status(201).json({ data: createdUser });
+        } catch (err) {
+            return res.status(500).json({ message: err });
+        }
+
+
+
     }
 
-    public login(userLoginDTO: UserLoginDTO) {
-        this.userService.login(userLoginDTO);
+    async login(req: Request, res: Response) {
+        try {
+            const userLoginDTO: UserLoginDTO = req.body;
+            if (!(userLoginDTO.email && userLoginDTO.password)) {
+                return res.status(400).send('All inputs is required');
+            }
+            const user = await this.userService.login(userLoginDTO);
+
+            if (user != null) {
+                return res.status(200).json({ message: 'Logado com sucesso!', data: user });
+            } else {
+                return res.status(401).json({ message: 'Usuário ou senha inválidos' });
+            }
+
+        } catch (err) {
+            return res.status(401).json({ message: err });
+        }
     }
 
 }

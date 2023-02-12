@@ -5,9 +5,17 @@ const route = Router();
 
 const eventsController = new EventsController();
 
+
+route.post('/events', (req: Request, res:Response) => {
+    return eventsController.createEvent(req, res);
+});
+
+
 route.get('/events', (req: Request, res:Response) => {
     return eventsController.GetAllEvents(req, res);
 });
+
+
 
 route.get('/events/:id', (req: Request, res: Response) => {
     //todo: implement

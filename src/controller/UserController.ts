@@ -16,9 +16,7 @@ export default class UserController {
 
             const validateCreate = CreateUserDTO.validateData(createUserDTO);
             if (!validateCreate.success) {
-                return res
-                    .status(401)
-                    .json('required data not informed');
+                return res.status(401).json(validateCreate.error);
             }
             const createdUser = await this.userService.createUser(createUserDTO);
             return res.status(201).json({ data: createdUser });

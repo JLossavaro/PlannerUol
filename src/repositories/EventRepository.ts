@@ -8,6 +8,7 @@ export default class EventRepository {
 
     async create(event: Events) {
         this._events.push(event);
+        return event;
     }
 
     async findById(id: string) {

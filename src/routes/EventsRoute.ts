@@ -6,6 +6,8 @@ const route = Router();
 const eventsController = new EventsController();
 
 
+//Atenção: existe um arquivo .json com todas as rotas/exemplos para o POSTMAN
+
 route.post('/events', (req: Request, res: Response) => {
     return eventsController.createEvent(req, res);
 });

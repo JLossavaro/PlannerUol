@@ -23,13 +23,7 @@ export default class EventsService {
         return await this._eventRepository.create(newEvent as Events);
     }
 
-    async GetAllEventsByWeekday(weekDay: string) {
-        const result = await this._eventRepository.findAllByWeekday(weekDay);
-        if (result.length == 0) {
-            throw new Error("Não existe evento para este dia");
-        }
-        return result;
-    }
+
 
     async GetEventsById(id: string) {
         const result = await this._eventRepository.findById(id);
@@ -39,16 +33,25 @@ export default class EventsService {
         return result;
     }
 
-    async DeleteEventById(id: any) {
-        const result = await this._eventRepository.findById(id);
+    async GetAllEventsByWeekday(weekDay: string) {
+        const result = await this._eventRepository.findAllByWeekday(weekDay);
+        if (result.length == 0) {
+            throw new Error("Não existe evento para este dia");
+        }
+        return result;
+    }
+
+    async DeleteEventById(id: string) {        
+        const result = await this._eventRepository.delete(id);
         if (!result) {
             throw new Error("Evento não encontrado");
         }
         return result;
     }
 
-    async DeleteAllEventsFromWeek(dayOfWeek: any) {
-        //Todo: implement
+    async DeleteAllEventsFromWeek(weekDay: string) {
+        const result = await this._eventRepository.deleteAllByWeekday(weekDay);
+        return result;
     }
 
 }

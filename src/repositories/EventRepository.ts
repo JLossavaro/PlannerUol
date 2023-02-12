@@ -27,5 +27,26 @@ export default class EventRepository {
     async findAll() {
         return this._events;
     }
+
+    async delete(id: string) {
+        console.log(id)
+        const index = this._events.findIndex(event => event._id === id);
+        if (index === -1) {
+            throw new Error(`Evento com o ${id} não encontrado.`);
+        }
+        const deletedEvent = this._events.splice(index, 1);
+        return deletedEvent;
+    }
+
+    async deleteAllByWeekday(weekDay: string) {
+        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        this._events = this._events.filter(event => {
+            const eventWeekday = weekdays[event.dateTime.getUTCDay()];
+            return eventWeekday !== weekDay;
+        });
+
+        return this._events;
+    }
+
 }
 

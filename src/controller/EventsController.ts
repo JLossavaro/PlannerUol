@@ -26,6 +26,7 @@ export default class EventsController {
         }
 
     }
+
     async GetAllEvents(req: Request, res: Response) {
         try {
             if (req.query.dayOfWeek) {
@@ -41,16 +42,16 @@ export default class EventsController {
 
     }
 
-    // async GetAllEventsByWeekday(req: Request, res: Response) {
-    //     const weekDay = req.body.dayOfWeek;
-    //     const data = await this.eventsService.GetAllEventsByWeekday(weekDay);
-    //     return res.status(200).json({ data: data });
-    // }
-
-    async GetEventsById() {
-        //Todo: implement
+    async GetEventsById(req: Request, res: Response) {
+        try {
+            console.log(req.params.id);
+            const data = await this.eventsService.GetEventsById(req.params.id as string);
+            return res.status(200).json({ data: data });
+        } catch (error) {
+            const errorMessage: string = (error as Error).message;
+            return res.status(500).send({ message: errorMessage });
+        }
     }
-
 
 
     async DeleteEventById(id: any) {

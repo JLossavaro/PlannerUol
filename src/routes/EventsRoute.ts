@@ -17,7 +17,7 @@ route.get('/events', (req: Request, res: Response) => {
 });
 
 route.get('/events/:id', (req: Request, res: Response) => {
-    //todo: implement
+    return eventsController.GetEventsById(req, res);
 });
 
 export default route;

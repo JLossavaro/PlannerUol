@@ -27,15 +27,25 @@ export default class EventsController {
 
     }
     async GetAllEvents(req: Request, res: Response) {
-        const data = await this.eventsService.GetAllEvents();
-        return res.status(200).json({ data: data });
+        try {
+            if (req.query.dayOfWeek) {
+                const data = await this.eventsService.GetAllEventsByWeekday(req.query.dayOfWeek as string);
+                return res.status(200).json({ data: data });
+            }
+            const data = await this.eventsService.GetAllEvents();
+            return res.status(200).json({ data: data });
+        } catch (error) {
+            const errorMessage: string = (error as Error).message;
+            return res.status(500).send({ message: errorMessage });
+        }
+
     }
 
-    async GetAllEventsByWeekday(req: Request, res: Response) {
-        const weekDay = req.query.weekDay;
-
-        //Todo: implement
-    }
+    // async GetAllEventsByWeekday(req: Request, res: Response) {
+    //     const weekDay = req.body.dayOfWeek;
+    //     const data = await this.eventsService.GetAllEventsByWeekday(weekDay);
+    //     return res.status(200).json({ data: data });
+    // }
 
     async GetEventsById() {
         //Todo: implement

@@ -9,6 +9,7 @@ export default class EventsService {
     }
 
     async GetAllEvents() {
+
         return await this._eventRepository.findAll();
     }
 
@@ -20,9 +21,15 @@ export default class EventsService {
             _id: events._id,
             createdAt: events.createdAt
         }
-        return await this._eventRepository.create(newEvent);
+        return await this._eventRepository.create(newEvent as Events);
     }
 
+    async GetAllEventsByWeekday(weekDay: string) {
+        const result = await this._eventRepository.findAllByWeekday(weekDay);
+        console.log(result);
+        return result;
+
+    }
     async GetEventsById() {
         //Todo: implement
     }
@@ -31,9 +38,7 @@ export default class EventsService {
         //Todo: implement
     }
 
-    async GetAllEventsByWeekday() {
-        //Todo: implement
-    }
+
 
     async DeleteAllEventsFromWeek(dayOfWeek: any) {
         //Todo: implement

@@ -15,8 +15,13 @@ export default class EventRepository {
         return this._events.find(event => event._id === id);
     }
 
-    async findAllByWeekday(id: string) {
-        return this._events.find(event => event._id === id);
+    async findAllByWeekday(weekDay: string) {
+        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const teste = this._events.filter(event => {
+            const eventWeekday = weekdays[event.dateTime.getUTCDay()];
+            return eventWeekday === weekDay;
+        });
+        return teste;
     }
 
     async findAll() {

@@ -27,11 +27,11 @@ export default class EventsService {
         //Todo: implement
     }
 
-    async GetAllEventsByWeekday() {
+    async DeleteEventById(id: any) {
         //Todo: implement
     }
 
-    async DeleteEventById(id: any) {
+    async GetAllEventsByWeekday() {
         //Todo: implement
     }
 

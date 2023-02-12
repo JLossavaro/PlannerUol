@@ -31,14 +31,17 @@ export default class EventsController {
         return res.status(200).json({ data: data });
     }
 
+    async GetAllEventsByWeekday(req: Request, res: Response) {
+        const weekDay = req.query.weekDay;
+
+        //Todo: implement
+    }
 
     async GetEventsById() {
         //Todo: implement
     }
 
-    async GetAllEventsByWeekday() {
-        //Todo: implement
-    }
+
 
     async DeleteEventById(id: any) {
         //Todo: implement

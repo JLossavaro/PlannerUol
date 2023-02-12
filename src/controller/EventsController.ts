@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import { EventsService } from "../services";
 
 
@@ -9,27 +10,28 @@ export default class EventsController {
         this.eventsService = new EventsService();
     };
 
-    public createEvent(event: any) {
+    async createEvent(event: any) {
         this.eventsService.CreateEvents(event);
     }
+    async GetAllEvents(req: Request, res: Response) {
+        const data = this.eventsService.GetAllEvents();
+        return res.status(200).json({ data: data });
+    }
 
-    public GetEventsById() {
+
+    async GetEventsById() {
         //Todo: implement
     }
 
-    public GetAllEvents() {
+    async GetAllEventsByWeekday() {
         //Todo: implement
     }
 
-    public GetAllEventsByWeekday() {
+    async DeleteEventById(id: any) {
         //Todo: implement
     }
 
-    public DeleteEventById(id: any) {
-        //Todo: implement
-    }
-
-    public DeleteAllEventsFromWeek(dayOfWeek: any) {
+    async DeleteAllEventsFromWeek(dayOfWeek: any) {
         //Todo: implement
     }
 

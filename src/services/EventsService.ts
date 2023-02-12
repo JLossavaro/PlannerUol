@@ -2,29 +2,32 @@ import { CreateEventDTO, CreateUserDTO } from "../DTO";
 import { EventRepository } from "../repositories";
 
 export default class EventsService {
+    _eventRepository: EventRepository;
+    constructor() {
+        this._eventRepository = new EventRepository();
+    }
 
+    async GetAllEvents() {
+        return await this._eventRepository.findAll();
+    }
 
-    public CreateEvents(event: CreateEventDTO) {
+    async CreateEvents(event: CreateEventDTO) {
         //Todo: implement
     }
 
-    public GetEventsById() {
+    async GetEventsById() {
         //Todo: implement
     }
 
-    public GetAllEvents() {
+    async GetAllEventsByWeekday() {
         //Todo: implement
     }
 
-    public GetAllEventsByWeekday() {
+    async DeleteEventById(id: any) {
         //Todo: implement
     }
 
-    public DeleteEventById(id: any) {
-        //Todo: implement
-    }
-
-    public DeleteAllEventsFromWeek(dayOfWeek: any) {
+    async DeleteAllEventsFromWeek(dayOfWeek: any) {
         //Todo: implement
     }
 

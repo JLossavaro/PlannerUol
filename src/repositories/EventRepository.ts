@@ -6,19 +6,19 @@ export default class EventRepository {
         this._events = new Array<Events>();
     }
 
-    public create(event: Events) {
+    async create(event: Events) {
         this._events.push(event);
     }
 
-    public findById(id: string) {
+    async findById(id: string) {
         return this._events.find(event => event._id === id);
     }
 
-    public findAllByWeekday(id: string) {
+    async findAllByWeekday(id: string) {
         return this._events.find(event => event._id === id);
     }
 
-    public findAll() {
+    async findAll() {
         return this._events;
     }
 }

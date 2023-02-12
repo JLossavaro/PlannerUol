@@ -20,13 +20,10 @@ export default class UserController {
                     .status(401)
                     .json('required data not informed');
             }
-
             const createdUser = await this.userService.createUser(createUserDTO);
-
             return res.status(201).json({ data: createdUser });
         } catch (err) {
             const errorMessage: string = (err as Error).message;
-
             if (errorMessage === "User already exists") {
                 return res.status(400).json({ message: errorMessage });
             }

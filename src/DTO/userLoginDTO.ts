@@ -1,4 +1,4 @@
-export default interface UserLoginDTO {
+export interface UserLoginDTO {
     email: string;
     password: string;
 }

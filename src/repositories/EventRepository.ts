@@ -29,7 +29,6 @@ export default class EventRepository {
     }
 
     async delete(id: string) {
-        console.log(id)
         const index = this._events.findIndex(event => event._id === id);
         if (index === -1) {
             throw new Error(`Evento com o ${id} não encontrado.`);
